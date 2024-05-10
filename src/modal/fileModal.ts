@@ -79,36 +79,32 @@ export default class FileModal extends FuzzyModal<Item> {
         this.scope.keys.unshift(i);
         let prompt = [
             {
-                command: "ctrl ↵",
+                command: "⌘⏎",
                 purpose: this.plugin.settings.file["keyCtrlEnter"],
             },
+            // {
+            //     command: "ctrl alt ↵",
+            //     purpose: this.plugin.settings.file["keyCtrlAltEnter"],
+            // },
+            // {
+            //     command: "alt ↵",
+            //     purpose: this.plugin.settings.file["keyAltEnter"],
+            // },
             {
-                command: "ctrl alt ↵",
-                purpose: this.plugin.settings.file["keyCtrlAltEnter"],
-            },
-            {
-                command: "alt ↵",
-                purpose: this.plugin.settings.file["keyAltEnter"],
-            },
-            {
-                command: "shift ↵",
+                command: "⇧⏎",
                 purpose: "创建新文件",
             },
             {
-                command: "ctrl shift ↵",
+                command: "⌘⇧⏎",
                 purpose: "创建新文件到新标签页",
-            },
-            {
-                command: "shift alt ↵",
-                purpose: "创建新文件到其他面板",
             },
         ];
         if (app.plugins.plugins["obsidian-hover-editor"]) {
             prompt.push({
-                command: "ctrl o",
+                command: "⌘I",
                 purpose: "打开到新浮窗",
             });
-            this.scope.register(["Mod"], "o", (event: KeyboardEvent) => {
+            this.scope.register(["Mod"], "i", (event: KeyboardEvent) => {
                 this.close();
                 let item = this.getChoosenItem();
                 const newLeaf = app.plugins.plugins["obsidian-hover-editor"].spawnPopover(

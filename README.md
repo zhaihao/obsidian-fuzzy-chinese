@@ -2,6 +2,10 @@
 
 为 Obsidian 提供中文拼音搜索的功能（支持双拼和繁体）。
 
+```shell
+git remote add upstream git@github.com:lazyloong/obsidian-fuzzy-chinese.git
+```
+
 ## 使用方法
 
 ### 文件搜索

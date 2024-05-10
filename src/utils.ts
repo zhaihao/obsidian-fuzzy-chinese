@@ -281,6 +281,7 @@ export class SuggestionRenderer {
     flairEl: HTMLElement;
     noteEl: HTMLElement;
     titleEl: HTMLElement;
+    pathEl: HTMLElement;
     toHighlightEl: HTMLElement;
     title: string = "";
     note: string = "";
@@ -290,6 +291,7 @@ export class SuggestionRenderer {
         this.containerEl = containerEl;
         this.contentEl = this.containerEl.createEl("div", { cls: "fz-suggestion-content" });
         this.titleEl = this.contentEl.createEl("div", { cls: "fz-suggestion-title" });
+        this.pathEl = this.contentEl.createEl("div", { cls: "fz-suggestion-path" });
         this.noteEl = this.contentEl.createEl("div", {
             cls: "fz-suggestion-note",
         });
@@ -305,25 +307,33 @@ export class SuggestionRenderer {
         let range = matchData.range,
             text: string,
             index = 0;
-        if (this.title == "") this.setTitle(matchData.item.name);
+        if (this.title == "") this.setTitle(matchData.item.path);
         if (this.toHighlightEl == this.titleEl) {
             text = this.title;
-            this.noteEl.innerText = this.note;
+            // this.noteEl.innerText = this.note;
         } else {
             text = this.note;
-            this.titleEl.innerText = this.title;
+            // this.titleEl.innerText = this.title;
         }
+        const spl = text.lastIndexOf('/') + 1
+        const path = text.substring(0, spl)
+        const name = text.substring(spl).slice(0, -3)
+
         if (range) {
             for (const r of range) {
-                this.toHighlightEl.appendText(text.slice(index, r[0]));
+                this.toHighlightEl.appendText(name.slice(index, r[0]));
                 this.toHighlightEl.createSpan({
                     cls: "suggestion-highlight",
-                    text: text.slice(r[0], r[1] + 1),
+                    text: name.slice(r[0], r[1] + 1 ),
                 });
                 index = r[1] + 1;
             }
         }
-        this.toHighlightEl.appendText(text.slice(index));
+        this.toHighlightEl.appendText(name.slice(index));
+        this.toHighlightEl.createSpan({
+            cls: "suggestion-path",
+            text: '🗂️ ' + path.slice(0, -1),
+        });
     }
     setTitle(text: string) {
         this.title = text;

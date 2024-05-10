@@ -236,11 +236,11 @@ class IndexManager extends Array<PinyinIndex<any>> {
         this.plugin = plugin;
     }
     load() {
-        let notice = new Notice("正在刷新索引中");
+        let notice = new Notice("正在刷新索引中",0);
         setTimeout(() => {
             this.forEach((index) => this.load_(index));
             notice.hide();
-            new Notice("索引刷新完成", 4000);
+            // new Notice("索引刷新完成", 4000);
         }, 100);
     }
     load_(index: PinyinIndex<any>) {
